@@ -1,15 +1,14 @@
 ---
 title: "Assignment 5"
 author:
-- Abe Kazemzadeh^[University of St. Thomas, abe.kazemzadeh@stthomas.edu]
-- OpenIntro Statistics^[Creative Commons--Share Alike By Attribution, https://www.openintro.org/license]
-date: "4/20/2020"
+- Alex/Fengyu Liang 
+date: "4/28/2020"
 output:
   pdf_document: default
   html_document:
     df_print: paged
 ---
-1234
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -66,6 +65,8 @@ For the confidence interval to be valid, the sample mean must be normally distri
 - (b) The sample size, 60, is less than 10% of all houses.
 - (c) The sample distribution must be nearly normal.
 
+C
+
 # Question 2
 
 What does “95% confidence” mean?
@@ -75,6 +76,8 @@ What does “95% confidence” mean?
 - (c) 95% of the houses in Ames have an area in this interval.
 - (d) 95% confident that the sample mean is in this interval.
 
+B
+
 # Question 3
 
 Does your confidence interval capture the true average size of houses in Ames? I.e.,
@@ -82,6 +85,7 @@ Does your confidence interval capture the true average size of houses in Ames? I
 ```{r}
 mean(population)
 ```
+Yes, Because it is in the range of 1307.728 and 1509.672. 
 
 # Testing the Theory
 
@@ -170,6 +174,9 @@ plot_ci(lower, upper, mean(population))
 # Question 4
 
 How many confidence intervals do not contain the true population mean?
+```{r}
+1/50
+```
 
 # Question 5
 
@@ -180,11 +187,34 @@ Question 5 [MULTIPLE CHOICE] What is the appropriate critical value for a 99% co
 - (c) 1.96
 - (d) 2.33
 - (e) 2.58
-
+```{r}
+cl = 0.99
+alpha = (1 - cl) / 2
+qnorm(alpha, lower.tail=F)
+```
+E 
 
 # Question 6 
 
 Calculate 50 confidence intervals at the 99% confidence level. Do not obtain new samples. Simply calculate new intervals based on the sample means and standard deviations you have already collected. Using the plot_ci function, plot all intervals and calculate the proportion of intervals that include the true population mean. What proportion do you get? Use a seed of 123.
+```{r}
+set.seed(123)
+samp_mean <- rep(NA, 50)
+samp_sd <- rep(NA, 50)
+n <- 60
+for(i in 1:50){
+samp <- sample(population, n)
+samp_mean[i] <- mean(samp)
+samp_sd[i] <- sd(samp)
+}
+lower <- samp_mean - 1.96 * samp_sd / sqrt(n)
+upper <- samp_mean + 1.96 * samp_sd / sqrt(n)
+c(lower[1],upper[1])
+plot_ci(lower, upper, mean(population))
+p <- 1-(1/50)
+p
+```
+98% proportion I got. 
 
 # Extra Question 1
 
@@ -219,31 +249,23 @@ plot_ci(lower, upper, mean(population))
 # Question 7 
 
 How many confidence intervals do not contain the true population mean now?
+```{r}
+9/50
+```
 
 
 # Question 8
 
 We can see that the small sample size statistically led to more intervals that did not contain the population mean. Use the t-distribution to find critical values and then re-run the simulation and see if it fixes the problem, i.e. fewer intervals that do not contain the population mean.
 
+To decrese the population mean which are not contained, we can simply increase the critical value into our calculation. 
 
 # Submission
 
-I'm trying a different format for the homework this time.  The goals are to make you more familiar with RMarkdown, get a taste of GitHub, to learn from peers, and to get specific feedback more rapidly. To try to achieve this, the new format is to create one or more discussion posts related to the homework. The constraints of the post are as follows.  You should post at least once and your post should be categorized into one of the following categories:
 
-- Question: something you're uncertain about or don't understand.  Post the question and try to phrase it in a way that will help others answer you.
 
-- Response: respond to a question.  Try to phrase the answer so that it's helpful to the asker's learning, so give more than just the answer but a bit of explanation, background info, an example, etc. 
+Discussion Link: https://stthomas.instructure.com/courses/30116/discussion_topics/243126
+hw5 <Response> <I bascially talked about my understanding of set.seed() function>
 
-- Recommendation: did you have an insight from the homework, find something useful in the book or on the web, or try some variation on the something in the homework?  Sharing this would be an example of a recommendation that you could post.
-
-- Summary: imagine someone outside the class who doesn't know muhc or anything about statistics (like your mom, your child, a neice or nephew, etc.).  Explain to them the main idea of the homework or a specific part of it.
-
-<<<<<<< HEAD
-Make sure that your question, response, recommendation, or learning summary is on the topics in the homework, especially if you just do one post (if you do more than one post, feel free to take more leeway on the later posts).  On-topic subjects can include RMarkdown and GitHub as well as the theoretical topics.  Use the subject "hw5 <type>, <blurb>"  where <type> is "question", "response", "recommendation", or "summary" and <blurb> is a brief description.
-=======
-Make sure that your question, response, recommendation, or learning summary is on the topics in the homework, especially if you just do one post (if you do more than one post, feel free to take more leeway on the later posts).  Use the subject "hw5 <type>, <blurb>"  where <type> is "question", "response", "recommendation", or "summary" and <blurb> is a brief description.
->>>>>>> 645e68d4f146eb00f85d05082ccf53c9eb958c8b
-
-Submit the link(s) to the discussion post that you created or commented on.
-
-I hope this variation on the assignment is fun or at least an interesting change of pace for you.  For me it is these things and also an attempt to adapt the class to the new online format.  
+Discussion Link: https://stthomas.instructure.com/courses/30116/discussion_topics/242953
+hw5 <response> <I answered the problems on question 8> 
